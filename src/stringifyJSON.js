@@ -23,12 +23,11 @@ var stringifyJSON = function(obj) {
   if (typeof obj === 'object') {
     var stringifiedObj = [];
     for (var key in obj) {
-      stringifiedObj.push(stringifyJSON(key) + ":" + stringifyJSON(obj[key]));
+      if (typeof obj[key] !== 'function' && obj[key] !== undefined) {
+        stringifiedObj.push(stringifyJSON(key) + ":" + stringifyJSON(obj[key]));
+      }
     }
     return ("{" + stringifiedObj.join(",") + "}");
-  }
-  if (typeof obj === 'function' || obj === undefined) {
-    return ""; 
   }
   //numbers, boolean
   return ("" + obj);
